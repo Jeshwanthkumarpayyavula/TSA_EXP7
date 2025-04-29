@@ -54,7 +54,7 @@ from sklearn.metrics import mean_squared_error
 #### Read the CSV file into a DataFrame :
 
 ```python
-data = pd.read_csv('/content/AirPassengers.csv',parse_dates=['Month'],index_col='Month')
+data = pd.read_csv('passengers_301.csv',parse_dates=['Date'],index_col='Date')
 ```
 
 #### Perform Augmented Dickey-Fuller test :
@@ -77,7 +77,7 @@ test_data = data.iloc[x:]
 
 ```python
 lag_order = 13
-model = AutoReg(train_data['#Passengers'], lags=lag_order)
+model = AutoReg(train_data['Passengers'], lags=lag_order)
 model_fit = model.fit()
 ```
 
@@ -85,11 +85,11 @@ model_fit = model.fit()
 
 ```python
 plt.figure(figsize=(10, 6))
-plot_acf(data['#Passengers'], lags=40, alpha=0.05)
+plot_acf(data['Passengers'], lags=40, alpha=0.05)
 plt.title('Autocorrelation Function (ACF)')
 plt.show()
 plt.figure(figsize=(10, 6))
-plot_pacf(data['#Passengers'], lags=40, alpha=0.05)
+plot_pacf(data['Passengers'], lags=40, alpha=0.05)
 plt.title('Partial Autocorrelation Function (PACF)')
 plt.show()
 ```
@@ -103,7 +103,7 @@ predictions = model_fit.predict(start=len(train_data), end=len(train_data)+len(t
 #### Compare the predictions with the test data :
 
 ```python
-mse = mean_squared_error(test_data['#Passengers'], predictions)
+mse = mean_squared_error(test_data['Passengers'], predictions)
 print('Mean Squared Error (MSE):', mse)
 ```
 
@@ -111,7 +111,7 @@ print('Mean Squared Error (MSE):', mse)
 
 ```python
 plt.figure(figsize=(12, 6))
-plt.plot(test_data['#Passengers'], label='Test Data - Number of passengers')
+plt.plot(test_data['Passengers'], label='Test Data - Number of passengers')
 plt.plot(predictions, label='Predictions - Number of passengers',linestyle='--')
 plt.xlabel('Date')
 plt.ylabel('Number of passengers')
@@ -130,12 +130,16 @@ Dataset:
 
 ADF test result:
 
-![image](https://github.com/user-attachments/assets/94ee87df-dd71-452c-a8cc-753c71a7ea47)
+![image](https://github.com/user-attachments/assets/c299719c-c1c6-4c5c-b6d1-6d959038d35a)
 
 
 PACF plot:
 
-![image](https://github.com/user-attachments/assets/c69f6f22-37fc-43a4-9ccc-3d0ed05a5e9e)
+![image](https://github.com/user-attachments/assets/a33ecf6b-9e55-4636-aeb4-06b3a810c227)
+
+ACF plot:
+
+![image](https://github.com/user-attachments/assets/926bd6fa-47cd-46d5-a745-8bf70af52278)
 
 Accuracy:
 
